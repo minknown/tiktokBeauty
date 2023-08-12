@@ -13,7 +13,7 @@
 6：post.php是一个tput.apk安卓程序请求得接口，用于创建视频条同时记录视频链接和ID，它会在一个tiktok得数据库表中新建和操作记录。另外post.php也是index.html短视频程序依赖的后端接口。  
 7：数据库建表建议和post.php\index.html同个服务器，最好localhost,表结构信息参见mysql-data-list.png。  
 8：AI图像人物识别接口由以下提供： https://www.faceplusplus.com/ 务必自行去开通和申请图像识别接口，并更换tiktok.e主程序里面的token。  
-9：该程序短视频仅限tiktok,不支持抖音，而且版本最好是本项目开发时得tiktok版本，我们准备了可用得版本，位于android\tiktok-change-apk下。  
+9：该程序短视频仅限tiktok,不支持抖音APP，而且版本最好是本项目开发时的tiktok版本，我们准备了可用的版本，详细见本页[关于FolderSyncPro]，它和FolderSyncPro位于同个获取方式或下载链接。另外ffmepg插件用于处理视频，包括增加水印等，建议也使用我们准备好的可用版本，获取方式和下载链接随同本页[关于FolderSyncPro]。   
 ## 我们解决了[非前台安卓程序无法读取剪辑版]的问题：
 TPut.apk位于tput压缩包下，是一个辅助从剪辑版获取视频链接的安卓程序。它解决了非前台安卓程序无法读取剪辑版的问题。  
 没错，这是一个突破！  
@@ -24,7 +24,8 @@ TPut.apk将得到的视频编号和链接通过HTTP接口发送给PC端的处理
 FolderSyncPro这个APP安装包是用来同步视频的，在之前我们下载视频模拟电脑的模拟按键，间接操作同个USB链接的手机屏幕，通过点击保存视频按钮，进行下载，但是下载的视频是在手机上的，所以必须使用FolderSyncPro这个软件项电脑磁盘进行同步。  
 或许有人问tiktok部分视频没有保存视频的选项，这就是必须使用们提供的tiktok老版本的问题，同时我们提供了市场上的tiktok改版，支持切换国家和强制下载视频。  
 但是由于FolderSyncPro的安装包和tiktok的特殊版本安卓包比较大，上传不了github，我将其上传到了我的服务器，注意，这两个APP也是项目必须使用的。  
-通过该链接获得他们：
+通过该链接获得他们：http://baidu.com  
+*（此链接包括FolderSyncPro、tiktokAPP、ffpemg插件）*
 ****
 ## 要点：  
 温馨提示1：可跳过动感图片集的短视频，短视频刷着刷着有两种，一些就是普通短视频，另一些是动感图集，我们会自动跳过这些。  
