@@ -24,7 +24,7 @@ TPut.apk将得到的视频编号和链接通过HTTP接口发送给PC端的处理
 FolderSyncPro这个APP安装包是用来同步视频的，在之前我们下载视频模拟电脑的模拟按键，间接操作同个USB链接的手机屏幕，通过点击保存视频按钮，进行下载，但是下载的视频是在手机上的，所以必须使用FolderSyncPro这个软件项电脑磁盘进行同步。  
 或许有人问tiktok部分视频没有保存视频的选项，这就是必须使用们提供的tiktok老版本的问题，同时我们提供了市场上的tiktok改版，支持切换国家和强制下载视频。  
 但是由于FolderSyncPro的安装包和tiktok的特殊版本安卓包比较大，上传不了github，我将其上传到了我的服务器，注意，这两个APP也是项目必须使用的。  
-通过该链接获得他们：http://baidu.com  
+通过该链接获得他们：[  ](https://drive.google.com/file/d/1Yjs7h726R2xf1DX4A93x9CGi4u8WMwzI/view?usp=drive_link)  
 *（此链接包括FolderSyncPro、tiktokAPP、ffpemg插件）*
 ****
 ## 要点：  
