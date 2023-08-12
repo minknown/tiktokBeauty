@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"
+            content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title>TikTok-video</title>
+        <style type="text/css">
+            /* 初始化样式 */
+            * {
+                padding: 0;
+                margin: 0;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                background-color: black;
+            }
+
+            .contains {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            .page {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+            }
+			.btn{
+				cursor:pointer;
+			}
+        </style>
+        <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="js/jquery.touchSwipe.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+			var tj="统计信息:暂无";
+			var nowurl="";
+			function oc(type){
+				if(type==0){
+					location.href="index.html";
+				}else if(type==1){
+					if(nowurl==""){
+						nowurl=$(".page:eq(0) video").attr('id');
+					}
+					location.href="post.php?way=show&id="+nowurl;
+				}else{
+					alert("这是一个专注美女短视频的小型生成系统。\n"+tj);
+				}
+			
+				
+			}
+			
+            $(document).ready(
+                function() {
+                    //主功能1：预加载视频
+                    function load_video() {
+                        $.ajax({
+                            url: "post.php?way=show",
+                            type: "GET",
+                            success: function(res) {
+								if(res=='noone'){
+									document.write("<h3>无法继续!</h3><p>视频接口暂无返回任何可用的资源!</p>");
+									return;
+								}
+								var c=JSON.parse(res);;
+								res=c;
+								
+								
+                                for (var i = 0; i < res.length; i++) {
+									
+									//--
+                                  
+									if(res[i].title=="tj"){
+											tj="上线:"+res[i].can+";失败:"+res[i].un+";等待:"+res[i].wait;
+									}else{
+											$(".contains").append('<div class="page"><video width="100%" height="100%" id="'+res[i].url+'" >\ <source src=' + res[i].vurl + ' type="video/mp4"></source></video></div>');
+									}
+									
+									//--
+                                }
+                            }
+                        })
+                    }
+                    load_video()
+
+                    //主功能2：视频切换
+                    // 当前所处的页面
+                    var page = 0;
+                    // 若处于当前展示页面则播放视频
+                    $(".page:eq(" + page + ") video").trigger("play")
+                    $(".contains").click(function() {
+                        if ($(".page:eq(" + page + ") video")[0].paused == true) {
+                            $(".page:eq(" + page + ") video").trigger("play")
+                        } else {
+                            $(".page:eq(" + page + ") video").trigger("pause")
+                        }
+                    })
+
+                    // 滑动事件监听
+                    $(".contains").swipe({
+                        // event代表事件,direction代表是滑动方向,distance代表滑动距离,duration代表滑动时长
+                        swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+                            // 判断是否为上滑并且若为最底页就禁止滑动了,$(".contains .page").length这条语句是获取当前视频总数
+                            if (direction == "up" && page < $(".contains .page").length - 1) {
+                                //停止播放上一个视频
+                                $(".page:eq(" + page + ") video").trigger("pause")
+                                //触发滑动效果
+                                $(".contains").animate({
+                                    top: "-=100%"
+                                }, 400)
+                                //对切换完毕后的视频进行播放
+                                page++
+                                $(".page:eq(" + page + ") video").trigger("play")
+								nowurl=$(".page:eq(" + page + ") video").attr('id');
+								console.log("nowurl="+nowurl);
+                            }
+                            // 判断是否为下滑并且若为最首页就禁止滑动了
+                            else if (direction == "down" && page > 0) {
+                                //停止播放上一个视频
+                                $(".page:eq(" + page + ") video").trigger("pause")
+                                //触发滑动效果
+                                $(".contains").animate({
+                                    top: "+=100%"
+                                }, 400)
+                                //对切换完毕后的视频进行播放
+                                page--
+                                $(".page:eq(" + page + ") video").trigger("play");
+								
+                            }
+
+                            //若为首视频仍然下滑，则触发重新加载视频效果
+                            else if (direction == "down" && page <= $(".contains .page").length - 1) {
+                                $(".contains").empty()
+                                load_video()
+                            }
+
+                            //若为末视频仍然上滑，则触发更新视频效果
+                            else if (direction == "up" && page-1 == $(".contains .page").length - 1 - 1) {
+                                load_video()
+                            }
+                        }
+                    })
+                }
+            )
+        </script>
+    </head>
+    <body>
+        <!-- 头部栏 -->
+        <header style="position: absolute;left: 0px;top: 0px;width:100%;height:60px;">
+            <div
+                style="display: flex;justify-content: space-around;width:100%;height:60px;padding: 18px 0;position: relative;left:0px;top:0px;color:aliceblue;font-size: 20px;z-index: 9999;font-weight: 700;opacity: .8;">
+                <div class='btn' onclick='oc(0);'>首页</div>
+				<div class='btn' onclick='oc(1);'>详情</div>
+                <div class='btn' onclick='oc(2);'>关于</div>
+            </div>
+        </header>
+        <!-- 视频加载区 -->
+        <div class="contains">
+
+        </div>
+        <!-- 末尾栏 -->
+        <footer style="position: absolute;left: 0px;bottom: 0px;width:100%;height:60px;display:none;">
+            <div
+                style="display: flex;justify-content: space-around;width:100%;height:60px;padding: 25px 0;position: relative;left:0px;top:0px;color:aliceblue;font-size: 14px;z-index: 9999;font-weight: 700;opacity: .8;">
+                <div>首页</div>
+                <div>上传</div>
+                <div>我的</div>
+            </div>
+        </footer>
+    </body>
+</html>
